@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Assessment Report</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="result-container">
+
+        <div class="result-header">
+            <h1>Credit Assessment Report</h1>
+            <p>AI Powered Loan Eligibility Analysis</p>
+        </div>
+
+        <div class="application-id">
+            <strong>Application ID:</strong> {{ application_id }}
+        </div>
+
+        <div class="cards-row">
+
+            <div class="info-card {% if status == 'APPROVED' %}status-approved{% else %}status-rejected{% endif %}">
+                <h3>Application Status</h3>
+                <h2>{{ status }}</h2>
+            </div>
+
+            <div class="info-card score-card">
+                <h3>Credit Score</h3>
+                <h2>{{ score }}/100</h2>
+            </div>
+
+        </div>
+
+        <div class="risk-card">
+            <h3>Risk Level</h3>
+            <p>{{ risk_level }}</p>
+        </div>
+
+        <div class="summary-card">
+            <h3>Recommendation Summary</h3>
+            <p>{{ summary }}</p>
+        </div>
+
+        <div class="details-card">
+
+            <h3>Submitted Application Details</h3>
+
+            <div class="details-grid">
+
+                <div>
+                    <strong>Age:</strong><br>
+                    {{ age }}
+                </div>
+
+                <div>
+                    <strong>Gender:</strong><br>
+                    {{ sex }}
+                </div>
+
+                <div>
+                    <strong>Job Category:</strong><br>
+                    {{ job }}
+                </div>
+
+                <div>
+                    <strong>Housing:</strong><br>
+                    {{ housing }}
+                </div>
+
+                <div>
+                    <strong>Saving Account:</strong><br>
+                    {{ saving_accounts }}
+                </div>
+
+                <div>
+                    <strong>Checking Account:</strong><br>
+                    {{ checking_account }}
+                </div>
+
+                <div>
+                    <strong>Credit Amount:</strong><br>
+                    ₹{{ credit_amount }}
+                </div>
+
+                <div>
+                    <strong>Loan Duration:</strong><br>
+                    {{ duration }} Months
+                </div>
+
+                <div>
+                    <strong>Purpose:</strong><br>
+                    {{ purpose }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="analysis-card">
+
+            {% if status == "APPROVED" %}
+
+            <h3>Strengths</h3>
+
+            <ul>
+                {% for item in strengths %}
+                <li>✅ {{ item }}</li>
+                {% endfor %}
+            </ul>
+
+            {% else %}
+
+            <h3>Reasons Identified</h3>
+
+            <ul>
+                {% for item in reasons %}
+                <li>❌ {{ item }}</li>
+                {% endfor %}
+            </ul>
+
+            {% endif %}
+
+        </div>
+
+        <div class="banks-section">
+
+            <h3>Eligible Banks</h3>
+
+            <div class="bank-grid">
+
+                {% for bank in eligible_banks %}
+                <div class="bank-card eligible">
+                    <strong>🏦 {{ bank }}</strong>
+                <br>
+                Eligible
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="banks-section">
+
+            <h3>Not Eligible Banks</h3>
+
+            <div class="bank-grid">
+
+                {% for bank in not_eligible_banks %}
+                <div class="bank-card rejected">
+                    <strong>🏦 {{ bank }}</strong>
+                <br>
+                Not Eligible
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="back-btn">
+            <a href="/">Analyze Another Application</a>
+        </div>
+
+    </div>
+<footer class="footer">
+    <p>
+        Credit Scoring & Bank Eligibility System |
+        Developed using Python, Flask, Machine Learning and Random Forest
+    </p>
+</footer>
+
+</body>
+
+</html>
