@@ -1,0 +1,13 @@
+Flask
+gunicorn
+numpy
+pandas
+opencv-python-headless
+matplotlib
+scikit-learn
+tensorflow
+keras
+h5py
+joblib
+reportlab
+Pillow
